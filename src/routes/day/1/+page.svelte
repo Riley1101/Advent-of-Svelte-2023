@@ -78,18 +78,24 @@
 >
 
 <div class="grid grid-cols-2 gap-4 w-full">
-	<div class=" border pt-2 p-4 rounded-md">
+	<fieldset
+		class=" border pt-2 p-4 rounded-md"
+		style:border-color={isCategorized ? 'rgba(0,0,255,0.1)' : ''}
+	>
 		<legend class="text-3xl px-4">{!isCategorized ? '👦 👧' : '😇 '}</legend>
 		{#each nice as child (child.name)}
 			<ChildCard {child} {send} {receive} />
 		{/each}
-	</div>
-	{#if true}
-		<div class="gap-2 border p-4 rounded-md duration-200" in:fade out:fade>
+	</fieldset>
+	<fieldset
+		class="gap-2 border p-4 rounded-md duration-200"
+		style:border-color={!isCategorized ? 'transparent' : 'rgba(255,0,0,0.1)'}
+	>
+		{#if isCategorized}
 			<legend class="text-3xl px-4">😈 </legend>
-			{#each naugthy as child (child.name)}
-				<ChildCard {child} {send} {receive} />
-			{/each}
-		</div>
-	{/if}
+		{/if}
+		{#each naugthy as child (child.name)}
+			<ChildCard {child} {send} {receive} />
+		{/each}
+	</fieldset>
 </div>
