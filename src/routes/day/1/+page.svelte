@@ -2,14 +2,16 @@
 	import ChildCard from '$lib/components/ChildCard.svelte';
 	import type { Child } from '$lib/types';
 	import { onMount } from 'svelte';
-	import { fade } from 'svelte/transition';
-
 	import { quintOut } from 'svelte/easing';
 	import { crossfade } from 'svelte/transition';
 
-	$: isCategorized = false;
+	let data: Child[];
 	let name = '';
 	let tally = 0;
+	$: data = [];
+	$: isCategorized = false;
+	$: nice = data.filter((item) => (isCategorized ? item.tally > 0 : true));
+	$: naugthy = data.filter((item) => (isCategorized ? item.tally < 0 : false));
 
 	const [send, receive] = crossfade({
 		fallback(node) {
@@ -27,14 +29,12 @@
 			};
 		}
 	});
+
 	function categorize() {
 		isCategorized = !isCategorized;
 	}
 
 	const dataUrl = 'https://advent.sveltesociety.dev/data/2023/day-one.json';
-
-	let data: Child[];
-	$: data = [];
 
 	onMount(async () => {
 		const res = await fetch(dataUrl);
@@ -46,9 +46,6 @@
 		name = '';
 		tally = 0;
 	}
-
-	$: nice = data.filter((item) => (isCategorized ? item.tally > 0 : true));
-	$: naugthy = data.filter((item) => (isCategorized ? item.tally < 0 : false));
 </script>
 
 <input
@@ -59,6 +56,8 @@
 />
 
 <input
+	min="-100"
+	max="100"
 	bind:value={tally}
 	type="number"
 	placeholder="Enter tally"
@@ -76,7 +75,6 @@
 	class="px-4 py-2 border bg-secondary text-white rounded-md hover:scale-105 duration-200 max-w-max mb-4"
 	>Categorize</button
 >
-
 <div class="grid grid-cols-2 gap-4 w-full">
 	<fieldset
 		class=" border pt-2 p-4 rounded-md"
