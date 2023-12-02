@@ -65,13 +65,13 @@
 <div class="grid grid-cols-2 gap-4 w-full">
 	<div class=" border pt-2 p-4 rounded-md">
 		<legend class="text-3xl px-4">😇 </legend>
-		{#each data.filter((item) => item.tally > 0) as child (child.name)}
+		{#each data.filter((item) => (isCategorized ? item.tally > 0 : true)) as child (child.name)}
 			<ChildCard {child} {updateTally} />
 		{/each}
 	</div>
 	<div class="gap-2 border p-4 rounded-md">
 		<legend class="text-3xl px-4">😈 </legend>
-		{#each data.filter((item) => item.tally < 0) as child (child.name)}
+		{#each data.filter((item) => (isCategorized ? item.tally < 0 : false)) as child (child.name)}
 			<ChildCard {child} {updateTally} />
 		{/each}
 	</div>
