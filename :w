@@ -1,0 +1,57 @@
+<script lang="ts">
+	import type { Child } from '$lib/types';
+	import { flip } from 'svelte/animate';
+	import { quintOut } from 'svelte/easing';
+	import { crossfade, fade } from 'svelte/transition';
+
+	export let child: Child;
+
+	const [send, receive] = crossfade({
+		fallback(node) {
+			const style = getComputedStyle(node);
+			const transform = style.transform === 'none' ? '' : style.transform;
+
+			return {
+				duration: 600,
+				easing: quintOut,
+				css: (t) => `
+					transform: ${transform} scale(${t});
+					opacity: ${t}
+				`
+			};
+		}
+	});
+	function calculateIndicatorWidth(child: Child) {
+		if (child.tally < 0) {
+			return {
+				width: `${Math.abs(child.tally)}%`,
+				color: 'rgba(255, 0, 0, 0.05)'
+			};
+		}
+		return {
+			width: `${child.tally}%`,
+			color: 'rgba(0, 0, 255, 0.05)'
+		};
+	}
+	let { width, color } = calculateIndicatorWidth(child);
+</script>
+
+<div
+	in:receive={{ key: child.name }}
+	out:send={{ key: child.name }}
+	animate:flip
+	class={`border relative rounded-md px-4 py-2 border-l-2 hover:border-l-primary cursor-pointer hover:bg-primary/5 flex justify-between`}
+>
+	<div
+		class="absolute w-full h-full top-0 left-0 bg-primary/5 rounded-md"
+		style:width
+		style:background-color={color}
+		transition:fade={{ delay: 250, duration: 300 }}
+	></div>
+	<span>
+		{child.name}
+	</span>
+	<span>
+		{child.tally}
+	</span>
+</div>
