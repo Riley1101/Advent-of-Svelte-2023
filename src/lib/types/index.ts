@@ -1,4 +1,4 @@
 export type Child = {
-    name: string;
-    tally: number;
+	name: string;
+	tally: number;
 };
