@@ -26,15 +26,6 @@
 		name = '';
 		tally = 0;
 	}
-
-	function updateTally(child: Child, newTally: number) {
-		data = data.map((item) => {
-			if (item.name === child.name) {
-				item.tally = newTally;
-			}
-			return item;
-		});
-	}
 </script>
 
 <input
@@ -67,14 +58,14 @@
 	<div class=" border pt-2 p-4 rounded-md">
 		<legend class="text-3xl px-4">{!isCategorized ? '👦 👧' : '😇 '}</legend>
 		{#each data.filter((item) => (isCategorized ? item.tally > 0 : true)) as child (child.name)}
-			<ChildCard {child} {updateTally} />
+			<ChildCard {child} />
 		{/each}
 	</div>
 	{#if isCategorized}
 		<div class="gap-2 border p-4 rounded-md duration-200" in:fade out:fade>
 			<legend class="text-3xl px-4">😈 </legend>
 			{#each data.filter((item) => (isCategorized ? item.tally < 0 : false)) as child (child.name)}
-				<ChildCard {child} {updateTally} />
+				<ChildCard {child} />
 			{/each}
 		</div>
 	{/if}

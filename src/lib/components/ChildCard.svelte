@@ -5,7 +5,6 @@
 	import { crossfade } from 'svelte/transition';
 
 	export let child: Child;
-	export let updateTally: (child: Child, newTally: number) => void;
 
 	const [send, receive] = crossfade({
 		fallback(node) {
