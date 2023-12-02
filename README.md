@@ -1,38 +1,26 @@
-# create-svelte
+# Svelte Advent Challenge
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+🎄 Welcome to my Svelte Advent Challenge! 🎅
 
-## Creating a project
+Get ready for a daily dose of Svelte coding fun as we count down to Christmas. Join me on this festive coding journey and let's celebrate the holiday season together!
 
-If you're seeing this, you've probably already done this step. Congrats!
+## How to Participate
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+1. **Visit Daily:** Check and visit [Advent of svelte 2023 ](https://advent.sveltesociety.dev/)
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+2. **Challenge Yourself:** Dive into each daily challenge and showcase your Svelte skills. Whether you're a beginner or an expert, there's something for everyone.
 
-## Developing
+## 🚀 If you have some suggestions to say
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Feel free to reach out. I would love to hear what you think about every single problem and your solution.
+Go ahead and create an issue. I would love to learn from your ideas 🌟🎉.
 
-```bash
-npm run dev
+## 🎁 Spread the Word
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+Encourage your friends and fellow developers to join the Svelte Advent Challenge!
 
-## Building
+Let's make this December a Svelte-filled coding celebration! 🌟🎉
 
-To create a production version of your app:
+Happy coding,
 
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+Arkar 🚀
