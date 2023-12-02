@@ -2,6 +2,7 @@
 	import ChildCard from '$lib/components/ChildCard.svelte';
 	import type { Child } from '$lib/types';
 	import { onMount } from 'svelte';
+	import { fade } from 'svelte/transition';
 	$: isCategorized = false;
 	let name = '';
 	let tally = 0;
@@ -40,16 +41,16 @@
 	bind:value={name}
 	type="text"
 	placeholder="Enter name"
-	class="rounded-md active:border-green-500 focus:border-green-500"
+	class="rounded-md active:border-green-500 focus:border-green-500 mb-4"
 />
 
 <input
 	bind:value={tally}
 	type="number"
 	placeholder="Enter tally"
-	class="rounded-md active:border-green-500 focus:border-green-500"
+	class="rounded-md active:border-green-500 focus:border-green-500 mb-4"
 />
-
+<br class="block md:hidden" />
 <button
 	on:click={add}
 	class="px-4 py-2 border bg-secondary text-white rounded-md hover:scale-105 duration-200 max-w-max mb-4"
@@ -64,15 +65,17 @@
 
 <div class="grid grid-cols-2 gap-4 w-full">
 	<div class=" border pt-2 p-4 rounded-md">
-		<legend class="text-3xl px-4">😇 </legend>
+		<legend class="text-3xl px-4">{!isCategorized ? '👦 👧' : '😇 '}</legend>
 		{#each data.filter((item) => (isCategorized ? item.tally > 0 : true)) as child (child.name)}
 			<ChildCard {child} {updateTally} />
 		{/each}
 	</div>
-	<div class="gap-2 border p-4 rounded-md">
-		<legend class="text-3xl px-4">😈 </legend>
-		{#each data.filter((item) => (isCategorized ? item.tally < 0 : false)) as child (child.name)}
-			<ChildCard {child} {updateTally} />
-		{/each}
-	</div>
+	{#if isCategorized}
+		<div class="gap-2 border p-4 rounded-md duration-200" in:fade out:fade>
+			<legend class="text-3xl px-4">😈 </legend>
+			{#each data.filter((item) => (isCategorized ? item.tally < 0 : false)) as child (child.name)}
+				<ChildCard {child} {updateTally} />
+			{/each}
+		</div>
+	{/if}
 </div>
