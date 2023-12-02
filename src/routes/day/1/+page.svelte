@@ -3,10 +3,30 @@
 	import type { Child } from '$lib/types';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
+
+	import { quintOut } from 'svelte/easing';
+	import { crossfade } from 'svelte/transition';
+
 	$: isCategorized = false;
 	let name = '';
 	let tally = 0;
 
+	const [send, receive] = crossfade({
+		fallback(node) {
+			const style = getComputedStyle(node);
+			const transform = style.transform === 'none' ? '' : style.transform;
+			return {
+				duration: 200,
+				easing: quintOut,
+				css: (t) => {
+					return `
+					transform: ${transform} scale(${t});
+					opacity: ${t}
+				`;
+				}
+			};
+		}
+	});
 	function categorize() {
 		isCategorized = !isCategorized;
 	}
@@ -26,6 +46,9 @@
 		name = '';
 		tally = 0;
 	}
+
+	$: nice = data.filter((item) => (isCategorized ? item.tally > 0 : true));
+	$: naugthy = data.filter((item) => (isCategorized ? item.tally < 0 : false));
 </script>
 
 <input
@@ -57,15 +80,15 @@
 <div class="grid grid-cols-2 gap-4 w-full">
 	<div class=" border pt-2 p-4 rounded-md">
 		<legend class="text-3xl px-4">{!isCategorized ? '👦 👧' : '😇 '}</legend>
-		{#each data.filter((item) => (isCategorized ? item.tally > 0 : true)) as child (child.name)}
-			<ChildCard {child} />
+		{#each nice as child (child.name)}
+			<ChildCard {child} {send} {receive} />
 		{/each}
 	</div>
-	{#if isCategorized}
+	{#if true}
 		<div class="gap-2 border p-4 rounded-md duration-200" in:fade out:fade>
 			<legend class="text-3xl px-4">😈 </legend>
-			{#each data.filter((item) => (isCategorized ? item.tally < 0 : false)) as child (child.name)}
-				<ChildCard {child} />
+			{#each naugthy as child (child.name)}
+				<ChildCard {child} {send} {receive} />
 			{/each}
 		</div>
 	{/if}

@@ -1,27 +1,13 @@
 <script lang="ts">
 	import type { Child } from '$lib/types';
 	import { flip } from 'svelte/animate';
-	import { quintOut } from 'svelte/easing';
-	import { crossfade } from 'svelte/transition';
+	import type { CrossfadeParams, TransitionConfig } from 'svelte/transition';
 
 	export let child: Child;
-
-	const [send, receive] = crossfade({
-		fallback(node) {
-			const style = getComputedStyle(node);
-			const transform = style.transform === 'none' ? '' : style.transform;
-			return {
-				duration: 200,
-				easing: quintOut,
-				css: (t) => {
-					return `
-					transform: ${transform} scale(${t});
-					opacity: ${t}
-				`;
-				}
-			};
-		}
-	});
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	export let send: (node: any, params: CrossfadeParams & { key: any }) => () => TransitionConfig;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	export let receive: (node: any, params: CrossfadeParams & { key: any }) => () => TransitionConfig;
 </script>
 
 <div
