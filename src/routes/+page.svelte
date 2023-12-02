@@ -1,5 +1,8 @@
-<script>
+<script lang="ts">
+	import Icon from '@iconify/svelte';
+	let completedDays = [1];
 	let days = Array.from({ length: 30 }, (_, i) => i + 1);
+	let isCompleted = (day: number) => (completedDays.includes(day) ? 'rgba(0, 255, 0, 0.03)' : '');
 </script>
 
 <div class="min-h-[700px] p-4 max-w-2xl mx-auto mt-12">
@@ -21,11 +24,15 @@
 					{#each days as day (day)}
 						<li
 							class="flex flex-row my-2 rounded-md cursor-pointer border-y transition-all items-center justify-between"
+							style:background-color={isCompleted(day)}
 						>
 							<a
 								href="/day/{day}"
 								class="hover:text-primary h-full w-1/2 border-l-2 hover:border-l-primary py-2 px-2 rounded-md flex items-center pl-4"
 							>
+								{#if isCompleted(day)}
+									<Icon icon="icons8:checked" class="text-green-500 mr-2" />
+								{/if}
 								Day {day}
 							</a>
 							<a
