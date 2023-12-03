@@ -21,8 +21,8 @@
 </script>
 
 <div
-	in:receive={{ key: child.name }}
-	out:send={{ key: child.name }}
+	in:receive={{ key: child.id }}
+	out:send={{ key: child.id }}
 	animate:flip
 	class={`grid relative my-2 border rounded-md px-4 py-2 border-l-2 overflow-hidden hover:border-l-primary cursor-pointer hover:bg-primary/5  transition-all`}
 	class:color

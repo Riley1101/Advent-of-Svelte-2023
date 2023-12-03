@@ -5,11 +5,10 @@
 	import { quintOut } from 'svelte/easing';
 	import { crossfade } from 'svelte/transition';
 
-	let data: Child[];
+	let data: Child[] = [];
 	let name = '';
 	let tally = 0;
-	$: data = [];
-	$: isCategorized = false;
+	let isCategorized = false;
 	$: nice = data.filter((item) => (isCategorized ? item.tally > 0 : true));
 	$: naugthy = data.filter((item) => (isCategorized ? item.tally < 0 : false));
 
@@ -18,7 +17,7 @@
 			const style = getComputedStyle(node);
 			const transform = style.transform === 'none' ? '' : style.transform;
 			return {
-				duration: 200,
+				duration: 0,
 				easing: quintOut,
 				css: (t) => {
 					return `
@@ -29,6 +28,8 @@
 			};
 		}
 	});
+	$: console.log(naugthy, 'naugthy');
+	$: console.log(nice, 'nice');
 
 	function categorize() {
 		isCategorized = !isCategorized;
@@ -39,10 +40,11 @@
 	onMount(async () => {
 		const res = await fetch(dataUrl);
 		data = await res.json();
+		data = data.map((item, indx) => ({ ...item, id: indx }));
 	});
 
 	function add() {
-		data = [{ name, tally: tally }, ...data];
+		data = [{ name, tally, id: data.length }, ...data];
 		name = '';
 		tally = 0;
 	}
@@ -81,7 +83,7 @@
 		style:border-color={isCategorized ? 'rgba(0,0,255,0.1)' : ''}
 	>
 		<legend class="text-3xl px-4">{!isCategorized ? '👦 👧' : '😇 '}</legend>
-		{#each nice as child (child.name)}
+		{#each nice as child (child.id)}
 			<ChildCard {child} {send} {receive} />
 		{/each}
 	</fieldset>
@@ -92,7 +94,7 @@
 		{#if isCategorized}
 			<legend class="text-3xl px-4">😈 </legend>
 		{/if}
-		{#each naugthy as child (child.name)}
+		{#each naugthy as child (child.id)}
 			<ChildCard {child} {send} {receive} />
 		{/each}
 	</fieldset>
