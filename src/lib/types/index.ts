@@ -1,5 +1,5 @@
 export type Child = {
-    name: string;
-    tally: number;
-    id: number;
+	name: string;
+	tally: number;
+	id: number;
 };

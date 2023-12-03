@@ -8,6 +8,9 @@ dependencies:
   '@formkit/auto-animate':
     specifier: ^0.8.1
     version: 0.8.1
+  polymorph-js:
+    specifier: ^1.0.2
+    version: 1.0.2
 
 devDependencies:
   '@iconify/svelte':
@@ -1844,6 +1847,10 @@ packages:
       mlly: 1.4.2
       pathe: 1.1.1
     dev: true
+
+  /polymorph-js@1.0.2:
+    resolution: {integrity: sha512-moIVGNoyYwhzzl6DWssvJyUxE4y6Coe06JGaQ0tUd+DBzZLC5SD4Vc4fH3Etk9bJ2633AozHF2x00/IqH/iXYg==}
+    dev: false
 
   /postcss-import@15.1.0(postcss@8.4.31):
     resolution: {integrity: sha512-hpr+J05B2FVYUAXHeK1YyI267J/dDDhMU6B6civm8hSY1jYJnBXxzKDKDswzJmtLHryrjhnDjqqp/49t8FALew==}

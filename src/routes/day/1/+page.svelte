@@ -28,9 +28,6 @@
 			};
 		}
 	});
-	$: console.log(naugthy, 'naugthy');
-	$: console.log(nice, 'nice');
-
 	function categorize() {
 		isCategorized = !isCategorized;
 	}
