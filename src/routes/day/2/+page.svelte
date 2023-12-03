@@ -27,8 +27,6 @@
 	progress.subscribe((val) => (path01 = val));
 
 	function calculateProgress() {
-		// keep cookie between 100 and 0
-		// interpolate the progress between 3 and 0
 		let p = (cookie / 100) * 1.5;
 		progress.set(p);
 	}
@@ -44,7 +42,9 @@
 		if (cookie == 0 || cookie <= 100) {
 			calculateProgress();
 		}
-		cookie -= 10;
+		if (cookie > 0) {
+			cookie -= 10;
+		}
 	}
 
 	function reset() {
