@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
-	let completedDays = [1, 2];
+	let completedDays = [1, 2, 3];
 	let days = Array.from({ length: 30 }, (_, i) => i + 1);
 	let isCompleted = (day: number) => (completedDays.includes(day) ? 'rgba(0, 255, 0, 0.03)' : '');
 </script>

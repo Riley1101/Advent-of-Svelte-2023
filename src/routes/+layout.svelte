@@ -11,6 +11,6 @@
 </svelte:head>
 
 <Header />
-<main class="font-mono">
+<main class="font-sans">
 	<slot />
 </main>
