@@ -19,6 +19,8 @@
 		"@sveltejs/kit": "^1.27.4",
 		"@tailwindcss/forms": "^0.5.7",
 		"@tailwindcss/typography": "^0.5.10",
+		"@types/d3": "^7.4.3",
+		"@types/d3-scale": "^4.0.8",
 		"@typescript-eslint/eslint-plugin": "^6.0.0",
 		"@typescript-eslint/parser": "^6.0.0",
 		"autoprefixer": "^10.4.16",
@@ -40,6 +42,9 @@
 	"type": "module",
 	"dependencies": {
 		"@formkit/auto-animate": "^0.8.1",
-		"polymorph-js": "^1.0.2"
+		"d3": "^7.8.5",
+		"d3-scale": "^4.0.2",
+		"polymorph-js": "^1.0.2",
+		"svelte-chartjs": "^3.1.2"
 	}
 }
